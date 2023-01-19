@@ -4,6 +4,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import swagger from 'swagger-ui-express';
+import rateLimit from 'express-rate-limit';
 import { config } from 'dotenv';
 
 import { ErrorHandler } from './errors/ErrorHandler';
@@ -23,6 +24,14 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 if (process.env.ENVIRONMENT !== 'test') {
   app.use('/api-docs', swagger.serve, swagger.setup(swaggerFile));
+
+  const limiter = rateLimit({
+    windowMs: 1000 * 20,
+    max: 20,
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+  app.use(limiter);
 }
 
 app.use('/account', accountRouter);
