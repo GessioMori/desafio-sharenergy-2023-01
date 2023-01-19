@@ -90,6 +90,36 @@
         }
       }
     },
+    "/account/logout": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "Logout from an account.",
+        "description": "Logout from an account, clearing the cookie.",
+        "responses": {
+          "200": {
+            "description": "Logout successful."
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/account": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "Get account information.",
+        "description": "Get account information using authentication cookie.",
+        "responses": {
+          "200": {
+            "description": "Account information retrieved successfully."
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
     "/client": {
       "get": {
         "tags": ["Clients"],
