@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Desafio - SHARENERGY 2023/01",
+    "description": "Documentação da API criada para o desafio SHARENERGY 2023/01.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "gessiomorin@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Account creation and login."
+    },
+    {
+      "name": "Clients",
+      "description": "Clients CRUD."
+    }
+  ],
+  "paths": {
+    "/account/signup": {
+      "post": {
+        "tags": ["Accounts"],
+        "summary": "Create a new account.",
+        "description": "Create a new account with username and password.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              },
+              "example": {
+                "username": "newUser",
+                "password": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Account created successfully."
+          },
+          "400": {
+            "description": "Invalid request body."
+          },
+          "409": {
+            "description": "Username already exists."
+          }
+        }
+      }
+    },
+    "/account/login": {
+      "post": {
+        "tags": ["Accounts"],
+        "summary": "Login to an existing account.",
+        "description": "Login to an existing account with username and password.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              },
+              "example": {
+                "username": "newUser",
+                "password": "123456",
+                "keepConnected": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful.",
+            "headers": {
+              "Set-Cookie": {
+                "description": "Cookie with the session token.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body."
+          },
+          "401": {
+            "description": "Invalid username or password."
+          }
+        }
+      }
+    },
+    "/client": {
+      "get": {
+        "tags": ["Clients"],
+        "summary": "Get all clients.",
+        "description": "Get all clients.",
+        "responses": {
+          "200": {
+            "description": "Clients retrieved successfully."
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Clients"],
+        "summary": "Create a new client.",
+        "description": "Create a new client.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              },
+              "example": {
+                "name": "New Client",
+                "email": "newclient@email.com",
+                "phoneNumber": "11999999999",
+                "address": "Rua dos Bobos, 0",
+                "cpf": "04089455081"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Client created successfully."
+          },
+          "400": {
+            "description": "Invalid request body."
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/client/{id}": {
+      "get": {
+        "tags": ["Clients"],
+        "summary": "Get a client by id.",
+        "description": "Get a client by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Client id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client retrieved successfully."
+          },
+          "400": {
+            "description": "Invalid id."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Client not found."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Clients"],
+        "summary": "Update a client by id.",
+        "description": "Update a client by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Client id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateClient"
+              },
+              "example": {
+                "name": "Updated Client",
+                "email": "updatedclient@email.com",
+                "phoneNumber": "22999999999",
+                "address": "Rua dos Atualizados, 10"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client updated successfully."
+          },
+          "400": {
+            "description": "Invalid id or request body."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Client not found."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Clients"],
+        "summary": "Delete a client by id.",
+        "description": "Delete a client by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Client id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Client deleted successfully."
+          },
+          "400": {
+            "description": "Invalid id."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Client not found."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Account": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Username for the account."
+          },
+          "password": {
+            "type": "string",
+            "description": "Password for the account."
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Username for the account."
+          },
+          "password": {
+            "type": "string",
+            "description": "Password for the account."
+          },
+          "keepConnected": {
+            "type": "boolean",
+            "description": "Keep the session alive."
+          }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Client name."
+          },
+          "email": {
+            "type": "string",
+            "description": "Client email."
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Client phone number."
+          },
+          "address": {
+            "type": "string",
+            "description": "Client address."
+          },
+          "cpf": {
+            "type": "string",
+            "description": "Client CPF."
+          }
+        }
+      },
+      "UpdateClient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Client name."
+          },
+          "email": {
+            "type": "string",
+            "description": "Client email."
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Client phone number."
+          },
+          "address": {
+            "type": "string",
+            "description": "Client address."
+          }
+        }
+      }
+    }
+  }
+}
