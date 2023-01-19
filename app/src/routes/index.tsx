@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import { getAuth } from "../api/account";
-import { Cats, DashboardLayout, Users } from "./dashboard";
+import { Cats, DashboardLayout, Dogs, Users } from "./dashboard";
 import { CreateAccount, Login } from "./main";
 
 export const authLoader =
@@ -50,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "cats",
         element: <Cats />,
+      },
+      {
+        path: "dogs",
+        element: <Dogs />,
       },
     ],
     loader: authLoader({ isPrivate: true }),
