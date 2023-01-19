@@ -1,92 +1,108 @@
-# Desafio para o processo seletivo SHARENERGY 2023/01
+# Desafio - Processo seletivo SHARENERGY 2023/01
 
-Repositório destinado aos interessados em participar do processo seletivo da SHARENERGY 2023/01. As vagas são voltadas para desenvolvimento de aplicações Web e Mobile.
+Link para vídeo:
 
-## Sobre a SHARENERGY
+Projeto full stack construído em TypeScript/Node.js.
 
-No ramo da produção de energia fotovoltaica, há a modalidade de produção compartilhada. Nessa modalidade, diferentes pessoas investem na construção de uma mesma usina fotovoltaica e dividem o retorno finaceiro referente à energia gerada pela usina.
+## Back-end
 
-Acreditamos que as energias renováveis terão um lugar dominante em nossa economia pelo resto de nossas vidas. Trabalhamos no sentido de ampliar o impacto positivo que as energias renováveis podem ter no meio ambiente e nas nossas vidas. O sucesso da SHARENERGY é resultado de nossa equipe apaixonada, juntamente com nosso compromisso de oferecer a melhor solução.
+### Features:
 
-Sabemos que negócios enfrentam desafios únicos e por isso oferecemos soluções turnkey, customizadas, economicamente viáveis e seguras.
+- A arquitetura do projeto segue os princípios SOLID, realizando a injeção de dependências com tsyringe.
+- Testes de unidade e integração utilizando jest e supertest;
+- Validação de dados utilizando zod;
+- Rotas protegidas utilizando um middleware que captura o cookie do cliente e faz a verificação;
+- Banco de dados MongoDB acessado via mongoose;
+- Tratamento de erros com express-async-errors;
+- Controle do número de requests/tempo utilizando express-rate-limit;
+- Criptografia das senhas utilizando argon2;
+- Documentação feita com Swagger.
 
-A Startup figura entre as top 10 EnergyTechs do ranking 100 Open Startups desde 2018. Prova de que a inovação está enraizada em nossa cultura. Somos uma startup em estágio de crescimento e você trabalhará diretamente com os fundadores, ajudando a definir a visão, o produto e a experiência do usuário.
+### Instalação e uso:
 
-<p align="left">
-  <a href="https://www.linkedin.com/company/sharenergy-brasil/">
-    <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn Button">
-  </a>
-  <a href="https://sharenergy.com.br/">
-    <img src="https://img.shields.io/badge/-Website-red" alt="Sharenergy Website Button">
-  </a>
-</p>
+Certifique-se de ter as seguintes versões instaladas (ou superiores):
 
-## Sobre a vaga
+- Node.js: 16.19.0
+- npm: 8.13.3
+- Docker 20.10.22
 
-Já pensou em potencializar o setor que mais cresce na galáxia e trabalhar com uma solução que utiliza tecnologia web de ponta, altamente distribuída com foco em performance e disponibilidade? 👀
+Clone o repositório e instale as dependências usando o npm install.
 
-Os desenvolvedores da Sharenergy são responsáveis por criar e manter aplicações para clientes internos e externos, prover soluções escaláveis, resilientes e altamente disponíveis que sustentem picos de acesso além de atuar como referência técnica e tutores de outros desenvolvedores.
+```bash
+git clone https://github.com/GessioMori/desafio-sharenergy-2023-01.git
+cd desafio-sharenergy-2023-01/server
+npm install
+```
 
-Procuramos por pessoas dinâmicas e que queiram estar aprendendo sempre. Nossa equipe é jovem, motivada e estamos sempre em busca de soluções criativas para alcançar os resultados que nossos clientes esperam. Se você tem esse perfil, é autoconfiante, autodidata e tem facilidade para lidar com desafios diários, essa vaga é para você!
+Crie um arquivo .env na pasta server (utilize o arquivo .env.example como base). Além disso, crie o arquivo init-mongo.js (utilize o arquivo init-mongo.js.example como base), ele será responsável por criar três databases dentro do mesmo container do Docker (um para cada ambiente: development, test e production).
+Para criar o banco de dados, execute:
 
-# O Desafio
+```bash
+docker compose up -d
+```
 
-Construir uma aplicação web (frontend e backend) capaz de realizar a comunicação com APIs distintas, além de um CRUD.
+Para iniciar o servidor em modo de desenvolvimento, execute:
 
-## Aplicação
+```bash
+npm run dev
+```
 
-- A página inicial da aplicação deve ser uma `Login Page`;
-- O usuário deve ser capaz de se autenticar utilizando o username `desafiosharenergy` e password `sh@r3n3rgy`, também, deve existir a possibilidade do usuário utilizar o `remember me` para realizar logins automáticos, sem a necessidade de digitar username e password após o primeiro acesso;
-- Após o Login, a página principal deve conter uma listagem de usuários gerada a partir da api [Random User Generator](https://randomuser.me/), a lista deve conter a foto do usuário, nome completo, email, username e idade. Além disso, os requests devem ser páginados, porém, é de critério do participante do desafio a quantidade de resultados a serem exibidos por página e variações para o mesmo. Também, deve haver uma search para buscar usuários por nome, email ou username;
-- Em uma segunda página, o usuário deve ser capaz de selecionar um status code http qualquer, e, após a seleção, deve ser retornada uma imagem da api [HTTP Cat](https://http.cat/) relacionada ao status escolhido, caso não exista tal imagem, deve ser retornada uma imagem de not found à critério de escolha do participante do desafio;
-- Em uma terceira página, deve haver um botão de refresh que, ao ser clicado, deve retornar uma imagem aleatória da api [Random Dog](https://random.dog/);
-- Em uma quarta página, deve haver uma lista de clientes, através da qual o usuário deve ser capaz de cadastrar novos clientes, visualizar informações de um cliente específico, atualizar um cliente e deletar clientes. O cadastro deve possuir nome, email, telefone, endereço e cpf.
+Para compilar o projeto e iniciar o servidor em modo de produção, execute:
 
-### Requisitos da aplicação e de código
+```bash
+npm run build
+npm start
+```
 
-- Interface amigável, bonita e limpa
-- Responsividade
-- Clean Code
+### Documentação
 
-### Ferramentas e Stack a ser utilizado
+A documentação pode ser acessada pela rota /api-docs.
 
-- ReactJS para o frontend
-- NodeJS (com ou sem frameworks) ou Golang para o backend
-- MongoDB
-- TypeScript
-- HTML e CSS
+### Testes
 
-### Aprimoramentos adicionais da aplicação (opcional)
+Para executar os testes, execute:
 
-A aplicação criada para o desafio pode ser aprimorada com recursos pensados por você. A seguir, foram listadas algumas sugestões do que poderia ser feito:
+```bash
+npm run test
+```
 
-- Testes
-- Documentação
+## Front-end
 
-### Mas, afinal, quais ferramentas a Sharenergy utiliza?
+### Features:
 
-* [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) e [Typescript](https://www.typescriptlang.org/)
-* Front-end: [ReactJS](https://reactjs.org/) e [React Native](https://reactnative.dev/)
-* Back-end: [Node.js](https://nodejs.org/en/), [NestJS](https://nestjs.com/) e [Go](https://golang.org/)
-* Banco de dados: [MongoDB](https://www.mongodb.com/) do lado do servidor e [Minimongo](https://guide.meteor.com/collections.html) do lado do cliente (cache)
-* Gerenciamento de Containers: [Docker](https://www.docker.com/)
-* Gerenciamento de Repositórios: [NX](https://nx.dev/)
-* UI: [Tailwind CSS](https://tailwindcss.com/) e [Material-UI V4](https://v4.mui.com/)
-* Sistema Operacional (principal): [Linux](https://www.linux.org/), também sendo possível utilizar o [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) (WSL)
+- Front-end construído com Vite/React e TypeScript;
+- Custom hooks para as queries e mutations com react-query;
+- Estilização com TailwindCSS e ícones do pacote phosphor-react;
+- Formulários responsivos com react-hook-form;
+- Validação de dados (tanto para queries quanto para mutations) com zod;
+- Criação de rotas com react-router-dom, realizando o processo de autorização antes da renderização dos componentes;
+- Conexão com as APIs feita através de axios.
 
-## O que devo entregar?
+### Instalação e uso:
 
-Esperamos de você duas entregas: o código no GitHub e um vídeo explicativo no YouTube.
+Certifique-se de ter as seguintes versões instaladas (ou superiores):
 
-### Instruções
+- Node.js: 16.19.0
+- npm: 8.13.3
 
-- Faça um fork desse repositório.
-- Em seguida, crie uma branch, cujo nome é o seu nome completo, no seguinte formato: meu-nome-completo.
-- Resolva o desafio realizando versionamento local e remoto. Fique à vontade em criar outras branches durante o desenvolvimento do código.
-- Inclua no README.md uma breve instrução de instalação e de execução da aplicação criada.
-- Faça um vídeo que explique o que você fez no desafio, com duração aproximada de 5 minutos. A facecam é opcional, mas bem-vinda. O vídeo deve ser postado no YouTube (pode deixar como não listado) e seu link deve ser colocado no README.md.
-- Ao finalizar o desafio, faça um pull request de sua branch para esse repositório.
+Clone o repositório e instale as dependências usando o npm install.
 
-### Prazo limite de entrega
+```bash
+git clone https://github.com/GessioMori/desafio-sharenergy-2023-01.git
+cd desafio-sharenergy-2023-01/app
+npm install
+```
 
-O pull request com sua solução do desafio deve ser feito até a data especificada no corpo do email que você recebeu com a descrição do desafio.
+No arquivo .env, altere o valor da variável VITE_API_URL para o endereço do servidor (por padrão, o servidor é iniciado na porta 3333). Utilize o arquivo .env.example como base.
+
+Para iniciar o servidor em modo de desenvolvimento, execute:
+
+```bash
+npm run dev
+```
+
+Para realizar o build do projeto, execute:
+
+```bash
+npm run build
+```

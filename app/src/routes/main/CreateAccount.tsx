@@ -62,6 +62,7 @@ export const CreateAccount: React.FC = () => {
           )}
           <PasswordInput
             label="Password"
+            placeholder="Password (min. 6 characters)"
             register={register("password", { required: true })}
           />
           {errors.password?.message && (
@@ -69,6 +70,7 @@ export const CreateAccount: React.FC = () => {
           )}
           <PasswordInput
             label="Confirm password"
+            placeholder="Password (min. 6 characters)"
             register={register("confirmPassword", { required: true })}
           />
           {errors.confirmPassword?.message && (
