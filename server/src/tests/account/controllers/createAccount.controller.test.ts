@@ -7,7 +7,7 @@ import { env } from '../../../utils/validators/env';
 describe('Create Account Controller', () => {
   beforeEach(async () => {
     set('strictQuery', true);
-    await connect(env.MONGO_TEST_URI || '');
+    await connect(env.MONGO_TEST_URI);
     const collections = await connection.db.collections();
     for (const collection of collections) {
       await collection.deleteMany({});
