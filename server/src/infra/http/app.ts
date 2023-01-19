@@ -6,9 +6,10 @@ import cors from 'cors';
 import { config } from 'dotenv';
 
 import { ErrorHandler } from './errors/ErrorHandler';
+import { accountRouter } from './routes/account.router';
+import { clientRouter } from './routes/client.router';
 
 import '../../containers/index';
-import { accountRouter } from './routes/account.router';
 
 config();
 
@@ -22,6 +23,5 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 app.use('/account', accountRouter);
-app.use(ErrorHandler);
-
+app.use('/client', clientRouter);
 app.use(ErrorHandler);
