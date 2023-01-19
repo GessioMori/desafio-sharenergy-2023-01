@@ -1,18 +1,17 @@
 import 'reflect-metadata';
 import { connect, connection, set } from 'mongoose';
-import { config } from 'dotenv';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { app } from '../../../infra/http/app';
+import { env } from '../../../utils/validators/env';
 
 describe('Get client Controller', () => {
   let authCookie: string;
   let clientId: string;
 
   beforeEach(async () => {
-    config();
     set('strictQuery', true);
-    await connect(process.env.MONGO_TEST_URI || '');
+    await connect(env.MONGO_TEST_URI || '');
     const collections = await connection.db.collections();
     for (const collection of collections) {
       await collection.deleteMany({});

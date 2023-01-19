@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import swagger from 'swagger-ui-express';
 import rateLimit from 'express-rate-limit';
-import { config } from 'dotenv';
 
 import { ErrorHandler } from './errors/ErrorHandler';
 import { accountRouter } from './routes/account.router';
@@ -13,16 +12,15 @@ import { clientRouter } from './routes/client.router';
 
 import '../../containers/index';
 import swaggerFile from './../../docs/swagger.json';
-
-config();
+import { env } from '../../utils/validators/env';
 
 export const app = express();
 
 app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cookieParser(env.COOKIE_SECRET));
+app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
 
-if (process.env.ENVIRONMENT !== 'test') {
+if (env.ENVIRONMENT !== 'test') {
   app.use('/api-docs', swagger.serve, swagger.setup(swaggerFile));
 
   const limiter = rateLimit({
