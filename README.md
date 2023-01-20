@@ -1,6 +1,6 @@
 # Desafio - Processo seletivo SHARENERGY 2023/01
 
-Link para vídeo:
+Vídeo: [LINK - YOUTUBE](https://youtu.be/FrL6QlWUrP0)
 
 Projeto full stack construído em TypeScript/Node.js.
 
