@@ -5,11 +5,13 @@ import { Eye, EyeSlash } from "phosphor-react";
 type PasswordInputProps = {
   register: UseFormRegisterReturn;
   label: string;
+  placeholder?: string;
 };
 
 export const PasswordInput: React.FC<PasswordInputProps> = ({
   label,
   register,
+  placeholder,
 }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,7 +27,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
       <input
         type={showPassword ? "text" : "password"}
         className="bg-zinc-800 py-2 px-4 rounded-md w-full"
-        placeholder="Password (min. 6 characters)"
+        placeholder={placeholder || "Password"}
         id={label}
         {...register}
       />
